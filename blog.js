@@ -28,39 +28,6 @@ fetch(urlPosts)
 
 const blogSection = document.querySelector(".blogSection");
 
-
-
-function checkuserId(postUserId) {
-    console.log("id del user del post = ", postUserId)
-    let j;
-    for (j = 0; j < 10; j++) {
-        if (postUserId === users[j].id) {
-            actualUser = users[j];
-            console.log(actualUser.id);
-
-            return;
-        }
-    }
-}
-
-// function getActualComments(commentPostId) {
-//     let commentNumberInPost = commentPostId * 5;
-//     console.log(commentNumberInPost);
-//     let k = 0;
-//     let l = 0;
-//     console.log(comments[2]);
-//     for (k = 0; k < 500; k++) {
-//         console.log(k, "hola");
-//         console.log(comments);
-//         console.log(comments[k]);
-//         if (comments[k].postId === commentPostId) {
-//             actualComments[l] = comments[k];
-//             l++;
-//         }
-//     }
-//     return;
-// }
-
 const displayQuestions = (data) => {
 
     for (let i = 0; i < data.length; i++) {
@@ -141,3 +108,34 @@ const displayQuestions = (data) => {
     }
 
 };
+
+function checkuserId(postUserId) {
+    console.log("id del user del post = ", postUserId)
+    let j;
+    for (j = 0; j < 10; j++) {
+        if (postUserId === users[j].id) {
+            actualUser = users[j];
+            console.log(actualUser.id);
+
+            return;
+        }
+    }
+}
+
+// function getActualComments(commentPostId) {
+//     let commentNumberInPost = commentPostId * 5;
+//     console.log(commentNumberInPost);
+//     let k = 0;
+//     let l = 0;
+//     console.log(comments[2]);
+//     for (k = 0; k < 500; k++) {
+//         console.log(k, "hola");
+//         console.log(comments);
+//         console.log(comments[k]);
+//         if (comments[k].postId === commentPostId) {
+//             actualComments[l] = comments[k];
+//             l++;
+//         }
+//     }
+//     return;
+// }
