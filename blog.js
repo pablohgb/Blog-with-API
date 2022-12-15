@@ -1,4 +1,15 @@
 let urlPosts = "http://localhost:3000/posts";
+let users, actualUser;
+
+fetch("http://localhost:3000/users")
+    .then(Response => {
+        console.log(Response);
+        return Response.json();
+    })
+    .then(userData => {
+        users = userData;
+        return;
+    });
 
 fetch(urlPosts)
   .then((res) => {
@@ -13,7 +24,8 @@ const blogSection = document.querySelector(".blogSection");
 const displayQuestions = (data) => {
 
   for (let i = 0; i < data.length; i++) {
-
+    checkuserId(data[i].userId)
+    console.log("hola");
     blogSection.innerHTML += `
         <section class="row shadow p-3 mb-5 bg-white rounded blogPopUp"> 
           <div class="col-md-auto p-0"> 
@@ -54,7 +66,9 @@ const displayQuestions = (data) => {
                         <p>${data[i].body}</p> 
                       </article>
                       <article class="blogUserId"> 
-                        <span id="blogUserIdText">blogUserId: ${data[i].userId}</span>
+                        <span id="blogUserIdText">blogUserId: ${actualUser.id}</span><br>
+                        <span id="blogUserUsername">username: ${actualUser.username}</span><br>
+                        <span id="blogUserEmail">user email: ${actualUser.email}</span>
                       </article>
                     </div>
                   </div>
@@ -68,19 +82,32 @@ const displayQuestions = (data) => {
           </div>
         </section>`;
 
-    fetch(`https://localhost:3000/posts/${data[i].id}`)
-      .then((res) => res.json())
-      .then((user) => {
-        console.log(user.id)
-        fetch(`https://localhost:3000/users/${user[i].id}`)
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data.id)
-          })
-          .catch((error) => console.error(error));
-      })
-      .catch((error) => console.error(error));
+    // fetch(`https://localhost:3000/posts/${data[i].id}`)
+    //   .then((res) => res.json())
+    //   .then((user) => {
+    //     console.log(user.id)
+    //     fetch(`https://localhost:3000/users/${user[i].id}`)
+    //       .then((res) => res.json())
+    //       .then((data) => {
+    //         console.log(data.id)
+    //       })
+    //       .catch((error) => console.error(error));
+    //   })
+    //   .catch((error) => console.error(error));
   }
 
 };
 
+function checkuserId(postUserId){
+    console.log("id del user del post = ", postUserId)
+    let j;
+    for (j=0; j<10; j++){
+
+    if (postUserId === users[j].id){
+        actualUser = users[j];
+        console.log(actualUser.id);
+
+        return;
+    }
+}
+}
