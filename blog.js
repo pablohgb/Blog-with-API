@@ -44,7 +44,7 @@ const displayQuestions = (data) => {
             <p class="blogTitle"><strong>${data[i].title}</strong></p>
             <p>${data[i].body}</p> 
           </article> 
-          <div class="col col-lg-2 align-self-center"> 
+          <div class="col-md-auto align-self-center"> 
             <div class="float-end"> 
               <button type="button" class="btn p-1" data-bs-toggle="modal" data-bs-target="#blog${data[i].id}"> 
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"> 
