@@ -1,30 +1,20 @@
-let urlPosts = "http://localhost:3000/posts", users, comments, actualUser, actualComments;
-fetch("http://localhost:3000/users")
-    .then(Response => {
-        console.log(Response);
-        return Response.json();
-    })
-    .then(userData => {
-        users = userData;
-        return;
-    });
-fetch("http://localhost:3000/comments")
-    .then(Response => {
-        console.log(Response);
-        return Response.json();
-    })
-    .then(commentData => {
-        comments = commentData;
-        console.log(comments)
-        return;
-    });
-fetch(urlPosts)
-    .then((res) => {
-        return res.json();
-    })
-    .then((data) => {
-        displayQuestions(data);
-    });
+let urlPosts = "http://localhost:3000/posts", users, actualUser, actualComments = [], posts;
+let comments;
+
+let requestResults;
+(async function () {
+    requestResults = await Promise.all([
+        fetch("http://localhost:3000/users"),
+        fetch("http://localhost:3000/comments"),
+        fetch(urlPosts)
+    ])
+    users = await requestResults[0].json();
+    comments = await requestResults[1].json();
+    posts = await requestResults[2].json();
+    displayQuestions(posts);
+
+
+})();
 
 const blogSection = document.querySelector(".blogSection");
 
@@ -32,8 +22,7 @@ const displayQuestions = (data) => {
 
     for (let i = 0; i < data.length; i++) {
         checkuserId(data[i].userId);
-//        getActualComments(data[i].id);
-        console.log("hola");
+        getActualComments(data[i].id);
         blogSection.innerHTML += `
         <section class="row shadow p-3 mb-5 bg-white rounded blogPopUp"> 
           <div class="col-md-auto p-0"> 
@@ -79,6 +68,21 @@ const displayQuestions = (data) => {
                       </article>
                       <article class="blogUserId"> 
                       <p class="blogTitle"><strong>Comments</strong></p>
+                      <span><strong>name:</strong> ${actualComments[0].name}</span><br>
+                      <span><strong>email:</strong> ${actualComments[0].email}</span><br>
+                      <span><strong>comment:</strong> ${actualComments[0].body}</span><br><br>
+                      <span><strong>name:</strong> ${actualComments[1].name}</span><br>
+                      <span><strong>email:</strong> ${actualComments[1].email}</span><br>
+                      <span><strong>comment:</strong> ${actualComments[1].body}</span><br><br>
+                      <span><strong>name:</strong> ${actualComments[2].name}</span><br>
+                      <span><strong>email:</strong> ${actualComments[2].email}</span><br>
+                      <span><strong>comment:</strong> ${actualComments[2].body}</span><br><br>
+                      <span><strong>name:</strong> ${actualComments[3].name}</span><br>
+                      <span><strong>email:</strong> ${actualComments[3].email}</span><br>
+                      <span><strong>comment:</strong> ${actualComments[3].body}</span><br><br>
+                      <span><strong>name:</strong> ${actualComments[4].name}</span><br>
+                      <span><strong>email:</strong> ${actualComments[4].email}</span><br>
+                      <span><strong>comment:</strong> ${actualComments[4].body}</span><br>
 
                       </article>
                     </div>
@@ -92,50 +96,31 @@ const displayQuestions = (data) => {
             </div>
           </div>
         </section>`;
-
-        // fetch(`https://localhost:3000/posts/${data[i].id}`)
-        //   .then((res) => res.json())
-        //   .then((user) => {
-        //     console.log(user.id)
-        //     fetch(`https://localhost:3000/users/${user[i].id}`)
-        //       .then((res) => res.json())
-        //       .then((data) => {
-        //         console.log(data.id)
-        //       })
-        //       .catch((error) => console.error(error));
-        //   })
-        //   .catch((error) => console.error(error));
     }
 
 };
 
 function checkuserId(postUserId) {
-    console.log("id del user del post = ", postUserId)
     let j;
     for (j = 0; j < 10; j++) {
         if (postUserId === users[j].id) {
             actualUser = users[j];
-            console.log(actualUser.id);
 
             return;
         }
     }
+
 }
 
-// function getActualComments(commentPostId) {
-//     let commentNumberInPost = commentPostId * 5;
-//     console.log(commentNumberInPost);
-//     let k = 0;
-//     let l = 0;
-//     console.log(comments[2]);
-//     for (k = 0; k < 500; k++) {
-//         console.log(k, "hola");
-//         console.log(comments);
-//         console.log(comments[k]);
-//         if (comments[k].postId === commentPostId) {
-//             actualComments[l] = comments[k];
-//             l++;
-//         }
-//     }
-//     return;
-// }
+function getActualComments(commentPostId) {
+    let commentNumberInPost = commentPostId * 5;
+    let k = 0;
+    let l = 0;
+    for (k = commentNumberInPost - 5; k < commentNumberInPost; k++) {
+        if (comments[k].postId === commentPostId) {
+            actualComments[l] = comments[k];
+            l++;
+        }
+    }
+    return;
+}
