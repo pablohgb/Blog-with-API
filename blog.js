@@ -1,6 +1,4 @@
-let urlPosts = "http://localhost:3000/posts";
-let users, actualUser;
-
+let urlPosts = "http://localhost:3000/posts", users, comments, actualUser, actualComments;
 fetch("http://localhost:3000/users")
     .then(Response => {
         console.log(Response);
@@ -10,23 +8,66 @@ fetch("http://localhost:3000/users")
         users = userData;
         return;
     });
-
+fetch("http://localhost:3000/comments")
+    .then(Response => {
+        console.log(Response);
+        return Response.json();
+    })
+    .then(commentData => {
+        comments = commentData;
+        console.log(comments)
+        return;
+    });
 fetch(urlPosts)
-  .then((res) => {
-    return res.json();
-  })
-  .then((data) => {
-    displayQuestions(data);
-  });
+    .then((res) => {
+        return res.json();
+    })
+    .then((data) => {
+        displayQuestions(data);
+    });
 
 const blogSection = document.querySelector(".blogSection");
 
+
+
+function checkuserId(postUserId) {
+    console.log("id del user del post = ", postUserId)
+    let j;
+    for (j = 0; j < 10; j++) {
+        if (postUserId === users[j].id) {
+            actualUser = users[j];
+            console.log(actualUser.id);
+
+            return;
+        }
+    }
+}
+
+// function getActualComments(commentPostId) {
+//     let commentNumberInPost = commentPostId * 5;
+//     console.log(commentNumberInPost);
+//     let k = 0;
+//     let l = 0;
+//     console.log(comments[2]);
+//     for (k = 0; k < 500; k++) {
+//         console.log(k, "hola");
+//         console.log(comments);
+//         console.log(comments[k]);
+//         if (comments[k].postId === commentPostId) {
+//             actualComments[l] = comments[k];
+//             l++;
+//         }
+//     }
+//     return;
+// }
+
 const displayQuestions = (data) => {
 
-  for (let i = 0; i < data.length; i++) {
-    checkuserId(data[i].userId)
-    console.log("hola");
-    blogSection.innerHTML += `
+    for (let i = 0; i < data.length; i++) {
+        checkuserId(data[i].userId);
+//        getActualComments(data[i].id);
+        console.log("hola");
+        blogSection.innerHTML += `
         <section class="row shadow p-3 mb-5 bg-white rounded blogPopUp"> 
           <div class="col-md-auto p-0"> 
             <div class="bg-light">
@@ -66,9 +107,12 @@ const displayQuestions = (data) => {
                         <p>${data[i].body}</p> 
                       </article>
                       <article class="blogUserId"> 
-                        <span id="blogUserIdText">blogUserId: ${actualUser.id}</span><br>
                         <span id="blogUserUsername">username: ${actualUser.username}</span><br>
                         <span id="blogUserEmail">user email: ${actualUser.email}</span>
+                      </article>
+                      <article class="blogUserId"> 
+                      <p class="blogTitle"><strong>Comments</strong></p>
+
                       </article>
                     </div>
                   </div>
@@ -82,32 +126,18 @@ const displayQuestions = (data) => {
           </div>
         </section>`;
 
-    // fetch(`https://localhost:3000/posts/${data[i].id}`)
-    //   .then((res) => res.json())
-    //   .then((user) => {
-    //     console.log(user.id)
-    //     fetch(`https://localhost:3000/users/${user[i].id}`)
-    //       .then((res) => res.json())
-    //       .then((data) => {
-    //         console.log(data.id)
-    //       })
-    //       .catch((error) => console.error(error));
-    //   })
-    //   .catch((error) => console.error(error));
-  }
+        // fetch(`https://localhost:3000/posts/${data[i].id}`)
+        //   .then((res) => res.json())
+        //   .then((user) => {
+        //     console.log(user.id)
+        //     fetch(`https://localhost:3000/users/${user[i].id}`)
+        //       .then((res) => res.json())
+        //       .then((data) => {
+        //         console.log(data.id)
+        //       })
+        //       .catch((error) => console.error(error));
+        //   })
+        //   .catch((error) => console.error(error));
+    }
 
 };
-
-function checkuserId(postUserId){
-    console.log("id del user del post = ", postUserId)
-    let j;
-    for (j=0; j<10; j++){
-
-    if (postUserId === users[j].id){
-        actualUser = users[j];
-        console.log(actualUser.id);
-
-        return;
-    }
-}
-}
