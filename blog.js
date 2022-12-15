@@ -1,23 +1,23 @@
-let urlPosts = "http://localhost:3000/posts", users, comments, actualUser, actualComments;
+let urlPosts = "http://localhost:3000/posts", users, comments, actualUser, actualPost;
+
 fetch("http://localhost:3000/users")
     .then(Response => {
-        console.log(Response);
         return Response.json();
     })
     .then(userData => {
         users = userData;
         return;
     });
+
 fetch("http://localhost:3000/comments")
     .then(Response => {
-        console.log(Response);
         return Response.json();
     })
     .then(commentData => {
         comments = commentData;
-        console.log(comments)
         return;
     });
+
 fetch(urlPosts)
     .then((res) => {
         return res.json();
@@ -32,8 +32,7 @@ const displayQuestions = (data) => {
 
     for (let i = 0; i < data.length; i++) {
         checkuserId(data[i].userId);
-//        getActualComments(data[i].id);
-        console.log("hola");
+        checkpostId(data[i].id);
         blogSection.innerHTML += `
         <section class="row shadow p-3 mb-5 bg-white rounded blogPopUp"> 
           <div class="col-md-auto p-0"> 
@@ -77,9 +76,14 @@ const displayQuestions = (data) => {
                         <span id="blogUserUsername">username: ${actualUser.username}</span><br>
                         <span id="blogUserEmail">user email: ${actualUser.email}</span>
                       </article>
-                      <article class="blogUserId"> 
                       <p class="blogTitle"><strong>Comments</strong></p>
-
+                      <article class="blogUserId"> 
+                        <span id="blogUserUsername">User Name: ${actualPost.name}</span><br>
+                        <span id="blogUserEmail">User email: ${actualPost.email}</span><br>
+                        <span id="blogUserEmail">${actualPost.body}</span>
+                        <span id="blogUserUsername">User Name: ${actualPost.name}</span><br>
+                        <span id="blogUserEmail">User email: ${actualPost.email}</span><br>
+                        <span id="blogUserEmail">${actualPost.body}</span>
                       </article>
                     </div>
                   </div>
@@ -110,32 +114,23 @@ const displayQuestions = (data) => {
 };
 
 function checkuserId(postUserId) {
-    console.log("id del user del post = ", postUserId)
     let j;
     for (j = 0; j < 10; j++) {
         if (postUserId === users[j].id) {
             actualUser = users[j];
-            console.log(actualUser.id);
-
+            
             return;
         }
     }
 }
 
-// function getActualComments(commentPostId) {
-//     let commentNumberInPost = commentPostId * 5;
-//     console.log(commentNumberInPost);
-//     let k = 0;
-//     let l = 0;
-//     console.log(comments[2]);
-//     for (k = 0; k < 500; k++) {
-//         console.log(k, "hola");
-//         console.log(comments);
-//         console.log(comments[k]);
-//         if (comments[k].postId === commentPostId) {
-//             actualComments[l] = comments[k];
-//             l++;
-//         }
-//     }
-//     return;
-// }
+function checkpostId(postPostId) {
+    let j;
+    for (j = 0; j < 500; j++) {
+        if (postPostId === comments[j].id) {
+            actualPost = comments[j];
+
+            return;
+        }
+    }
+}
