@@ -59,22 +59,29 @@ const displayQuestions = (data) => {
                         <span id="blogUserUsername">username: ${actualUser.username}</span><br>
                         <span id="blogUserEmail">user email: ${actualUser.email}</span>
                       </article>
-                        <p class="blogTitle"><strong>Comments</strong></p>
-                        <span><strong>name:</strong> ${actualComments[0].name}</span><br>
-                        <span><strong>email:</strong> ${actualComments[0].email}</span><br>
-                        <span><strong>comment:</strong> ${actualComments[0].body}</span><br><br>
-                        <span><strong>name:</strong> ${actualComments[1].name}</span><br>
-                        <span><strong>email:</strong> ${actualComments[1].email}</span><br>
-                        <span><strong>comment:</strong> ${actualComments[1].body}</span><br><br>
-                        <span><strong>name:</strong> ${actualComments[2].name}</span><br>
-                        <span><strong>email:</strong> ${actualComments[2].email}</span><br>
-                        <span><strong>comment:</strong> ${actualComments[2].body}</span><br><br>
-                        <span><strong>name:</strong> ${actualComments[3].name}</span><br>
-                        <span><strong>email:</strong> ${actualComments[3].email}</span><br>
-                        <span><strong>comment:</strong> ${actualComments[3].body}</span><br><br>
-                        <span><strong>name:</strong> ${actualComments[4].name}</span><br>
-                        <span><strong>email:</strong> ${actualComments[4].email}</span><br>
-                        <span><strong>comment:</strong> ${actualComments[4].body}</span><br>
+                      <p class="blogTitle"><strong>Comments</strong></p>
+                      <p> <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse${data[i].id}" aria-expanded="false" aria-controls="collapse">
+                                            Show comments
+                        </button></p>
+                      <article class="collapse" id="collapse${data[i].id}">
+                      <div class="card card-body">
+                      <span><strong>name:</strong> ${actualComments[0].name}</span><br>
+                      <span><strong>email:</strong> ${actualComments[0].email}</span><br>
+                      <span><strong>comment:</strong> ${actualComments[0].body}</span><br><br>
+                      <span><strong>name:</strong> ${actualComments[1].name}</span><br>
+                      <span><strong>email:</strong> ${actualComments[1].email}</span><br>
+                      <span><strong>comment:</strong> ${actualComments[1].body}</span><br><br>
+                      <span><strong>name:</strong> ${actualComments[2].name}</span><br>
+                      <span><strong>email:</strong> ${actualComments[2].email}</span><br>
+                      <span><strong>comment:</strong> ${actualComments[2].body}</span><br><br>
+                      <span><strong>name:</strong> ${actualComments[3].name}</span><br>
+                      <span><strong>email:</strong> ${actualComments[3].email}</span><br>
+                      <span><strong>comment:</strong> ${actualComments[3].body}</span><br><br>
+                      <span><strong>name:</strong> ${actualComments[4].name}</span><br>
+                      <span><strong>email:</strong> ${actualComments[4].email}</span><br>
+                      <span><strong>comment:</strong> ${actualComments[4].body}</span><br>
+                      <div>
                       </article>
                     </div>
                   </div>
